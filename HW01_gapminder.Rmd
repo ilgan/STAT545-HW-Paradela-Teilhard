@@ -1,0 +1,7 @@
+---
+title: "HW01"
+output: html_document
+---
+
+I have deleted the R Markdown document that I started in the last class. But I will try to reconstruct it if I have time tonight. In the meantime, I just want to be able to render this to an output format and push it to GitHub.
+
