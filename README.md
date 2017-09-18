@@ -29,6 +29,11 @@ I am a doctoral candidate in History. <
 It took me awhile to figure out how to edit this page. But writing and editing the text: easy. 
 Not sure if the pulling will work. I guess we'll see.
 
+# Back on GitHub
+
 OK. So I was able to push from my local to here. And I noted this earlier. But I did not press commit. So I have to do it again.
 
 I have also pushed the HW01_gapminded.Rmd and companion file.
+
+About me:
+https://www.grad.ubc.ca/campus-community/meet-our-students/paradela-teilhard
