@@ -8,11 +8,11 @@ some of whom I have not yet met;
 
 and STAT 545 classmates!
 
-#Header From this line on...
+# From this line on...
 
-##Header I am already editing the README.md locally.
+## I am already editing the README.md locally.
 
-###Header Let me introduce myself:
+### Let me introduce myself:
 
 > My name is **Teilhard Paradela**.
 But please call me *Ty*.
