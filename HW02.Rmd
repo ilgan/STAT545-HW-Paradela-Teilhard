@@ -1,0 +1,296 @@
+---
+title: "Homework 02 ReadMe"
+author: "Me"
+date: '2017-09-26'
+output: 
+  html_document:
+  keep_md: true
+---
+
+# Doing Homework 02
+
+## Installing gapminder and tidyverse.
+
+```{r}
+install.packages("gapminder")
+library(gapminder)
+```
+
+
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+## (A) Exploring attributes of gapminder
+
+### (1) Type of Gapminder
+```{r}
+typeof(gapminder)
+```
+
+### (2) Class of Gapminder
+```{r}
+class(gapminder)
+```
+
+### (3) Variables / Columns
+```{r}
+ncol(gapminder)
+```
+
+### (4) Rows / Observations
+```{r}
+nrow(gapminder)
+```
+
+### (5) Alternative ways of determining "size" or "extent"
+```{r}
+dim(gapminder)
+```
+
+```{r}
+summary(gapminder)
+```
+
+### (6) Type of each variable?
+```{r}
+sapply(gapminder, typeof)
+```
+
+#### Reflections of the Process
+- This section took me awhile since I have forgotten almost all of these functions and had to go back to the notes. As you might have guessed, I am new at R. 
+- I also consulted google a lot. My seatmate, Cindy, who was the one of the peer reviewers of my first homework assignment, also helped a lot. Shoutout to Cindy! I also learned from the two classmates whose first homework I reviewed.
+- My first homework was done haphazardly. I will eventually edit the main ReadMe file. I hope this homework is easier to follow for the reviewers and markers.
+
+
+! https://en.wikipedia.org/wiki/Keep_Calm_and_Carry_On#/media/File:Keep-calm-and-carry-on-scan.jpg
+
+## (B) Exploring individual variables of gapminder
+
+### (1) Possible values (or range, whichever is appropriate) of each variable?
+```{r}
+max <- sapply(select(gapminder,year,lifeExp,pop,gdpPercap),max)
+min <- sapply(select(gapminder,year,lifeExp,pop,gdpPercap),min)
+#Range of Years
+c(min[1],max[1])
+#Range of lifeExp
+c(min[1],max[1])
+#Range of pop
+c(min[1],max[1])
+#Range of gdpPercap
+c(min[1],max[1])
+```
+
+
+``` r
+
+
+```
+
+    ## year year 
+    ## 2007 1952
+
+``` r
+#Range of LifeExp
+c(max[2],min[2])
+```
+
+    ## lifeExp lifeExp 
+    ##  82.603  23.599
+
+``` r
+#Range of Pop
+c(max[3],min[3])
+```
+
+    ##        pop        pop 
+    ## 1318683096      60011
+
+``` r
+#Range of gdpPercap
+c(max[4],min[4])
+```
+
+    ##   gdpPercap   gdpPercap 
+    ## 113523.1329    241.1659
+
+``` r
+table(gapminder$country)
+```
+
+    ## 
+    ##              Afghanistan                  Albania                  Algeria 
+    ##                       12                       12                       12 
+    ##                   Angola                Argentina                Australia 
+    ##                       12                       12                       12 
+    ##                  Austria                  Bahrain               Bangladesh 
+    ##                       12                       12                       12 
+    ##                  Belgium                    Benin                  Bolivia 
+    ##                       12                       12                       12 
+    ##   Bosnia and Herzegovina                 Botswana                   Brazil 
+    ##                       12                       12                       12 
+    ##                 Bulgaria             Burkina Faso                  Burundi 
+    ##                       12                       12                       12 
+    ##                 Cambodia                 Cameroon                   Canada 
+    ##                       12                       12                       12 
+    ## Central African Republic                     Chad                    Chile 
+    ##                       12                       12                       12 
+    ##                    China                 Colombia                  Comoros 
+    ##                       12                       12                       12 
+    ##         Congo, Dem. Rep.              Congo, Rep.               Costa Rica 
+    ##                       12                       12                       12 
+    ##            Cote d'Ivoire                  Croatia                     Cuba 
+    ##                       12                       12                       12 
+    ##           Czech Republic                  Denmark                 Djibouti 
+    ##                       12                       12                       12 
+    ##       Dominican Republic                  Ecuador                    Egypt 
+    ##                       12                       12                       12 
+    ##              El Salvador        Equatorial Guinea                  Eritrea 
+    ##                       12                       12                       12 
+    ##                 Ethiopia                  Finland                   France 
+    ##                       12                       12                       12 
+    ##                    Gabon                   Gambia                  Germany 
+    ##                       12                       12                       12 
+    ##                    Ghana                   Greece                Guatemala 
+    ##                       12                       12                       12 
+    ##                   Guinea            Guinea-Bissau                    Haiti 
+    ##                       12                       12                       12 
+    ##                 Honduras         Hong Kong, China                  Hungary 
+    ##                       12                       12                       12 
+    ##                  Iceland                    India                Indonesia 
+    ##                       12                       12                       12 
+    ##                     Iran                     Iraq                  Ireland 
+    ##                       12                       12                       12 
+    ##                   Israel                    Italy                  Jamaica 
+    ##                       12                       12                       12 
+    ##                    Japan                   Jordan                    Kenya 
+    ##                       12                       12                       12 
+    ##         Korea, Dem. Rep.              Korea, Rep.                   Kuwait 
+    ##                       12                       12                       12 
+    ##                  Lebanon                  Lesotho                  Liberia 
+    ##                       12                       12                       12 
+    ##                    Libya               Madagascar                   Malawi 
+    ##                       12                       12                       12 
+    ##                 Malaysia                     Mali               Mauritania 
+    ##                       12                       12                       12 
+    ##                Mauritius                   Mexico                 Mongolia 
+    ##                       12                       12                       12 
+    ##               Montenegro                  Morocco               Mozambique 
+    ##                       12                       12                       12 
+    ##                  Myanmar                  Namibia                    Nepal 
+    ##                       12                       12                       12 
+    ##              Netherlands              New Zealand                Nicaragua 
+    ##                       12                       12                       12 
+    ##                    Niger                  Nigeria                   Norway 
+    ##                       12                       12                       12 
+    ##                     Oman                 Pakistan                   Panama 
+    ##                       12                       12                       12 
+    ##                 Paraguay                     Peru              Philippines 
+    ##                       12                       12                       12 
+    ##                   Poland                 Portugal              Puerto Rico 
+    ##                       12                       12                       12 
+    ##                  Reunion                  Romania                   Rwanda 
+    ##                       12                       12                       12 
+    ##    Sao Tome and Principe             Saudi Arabia                  Senegal 
+    ##                       12                       12                       12 
+    ##                   Serbia             Sierra Leone                Singapore 
+    ##                       12                       12                       12 
+    ##          Slovak Republic                 Slovenia                  Somalia 
+    ##                       12                       12                       12 
+    ##             South Africa                    Spain                Sri Lanka 
+    ##                       12                       12                       12 
+    ##                    Sudan                Swaziland                   Sweden 
+    ##                       12                       12                       12 
+    ##              Switzerland                    Syria                   Taiwan 
+    ##                       12                       12                       12 
+    ##                 Tanzania                 Thailand                     Togo 
+    ##                       12                       12                       12 
+    ##      Trinidad and Tobago                  Tunisia                   Turkey 
+    ##                       12                       12                       12 
+    ##                   Uganda           United Kingdom            United States 
+    ##                       12                       12                       12 
+    ##                  Uruguay                Venezuela                  Vietnam 
+    ##                       12                       12                       12 
+    ##       West Bank and Gaza              Yemen, Rep.                   Zambia 
+    ##                       12                       12                       12 
+    ##                 Zimbabwe 
+    ##                       12
+
+``` r
+table(gapminder$continent)
+```
+
+    ## 
+    ##   Africa Americas     Asia   Europe  Oceania 
+    ##      624      300      396      360       24
+
+
+### (2) Typical values: spread and distribution
+```{r}
+HW02Plot1 <- ggplot(gapminder, aes(x=continent, y=pop)) + geom_line()
+HW02Plot1
+```
+
+```{r}
+HW02Plot2 <- ggplot(gapminder, aes(x=country, y=gdpPercap)) + geom_point()
+HW02Plot2
+```
+
+```{r}
+HW02Plot3 <- ggplot(gapminder, aes(x=pop, color=continent)) + 
+  geom_density()
+HW02Plot3
+```
+
+#### Reflections on the process
+- This is fun. I could do more of this. I am itching to work on my data now and produce these visualizations.
+
+## (C) Exploring various plot types
+
+### (1) Scatterplot of two quantitative variables
+
+```{r}
+gapminder %>%
+  filter (country %in% c("Philippines", "Canada","South Africa","Peru")) %>% 
+  ggplot(aes(x = pop, y = lifeExp)) +
+  geom_point(aes(color = country))
+```
+
+### (2) A plot of one quantitative variable
+```{r}
+gapminder %>%
+  filter (country %in% c("Philippines", "Canada","South Africa","Peru")) %>% 
+  ggplot(aes(x = year, y = pop)) +
+  geom_line(aes(color = country))
+```
+
+### (3) A plot of one quantitative variable and one categorical variable.
+```{r}
+gapminder %>%
+  filter (country %in% c("Philippines", "Canada","South Africa","Peru")) %>% 
+  ggplot(aes(x = year, y = pop, color = country)) +
+  geom_boxplot(aes(shape = country))
+```
+
+### (4) Using select and filter and piping
+
+```{r}
+select(gapminder, country, continent)
+```
+
+```{r}
+filter(gapminder, 
+       continent != "Asia")
+```
+
+```{r}
+gapminder %>% 
+  filter (country %in% c("Philippines", "Peru"),
+          year<= 1969, year >= 1960) %>%
+  select (country, year, pop)
+```
+
+#### Reflections of the Process
+- I want to explore more but I don't have time. This has been a very useful homework.
+- I am having difficulties pushing this back to GitHub.
