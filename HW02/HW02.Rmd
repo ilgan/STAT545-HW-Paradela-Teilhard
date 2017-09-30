@@ -1,10 +1,8 @@
 ---
 title: "Homework 02 ReadMe"
-author: "Me"
-date: '2017-09-26'
-output: 
-  html_document:
-  keep_md: true
+output:
+  github_document: default
+  keep_md: default
 ---
 
 # Doing Homework 02
