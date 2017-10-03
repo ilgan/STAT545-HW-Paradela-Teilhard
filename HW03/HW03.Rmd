@@ -16,44 +16,62 @@ library(tidyverse)
 Get the maximum and minimum of GDP per capita for all continents
 
 ```{r}
-gapminder %>% 
+max_gdpPercap <- gapminder %>% 
   group_by(continent) %>% 
-  summarize(max_gdpPercap = max(gdpPercap))
+  summarize(maximum = max(gdpPercap))
+max_gdpPercap
 ```
 ### Note 1:
 I reworked a code from cm008 notes. 
 
 ```{r}
-table(max_gdppercap)
+table(max_gdpPercap)
 ```
 ### Note 2:
-I don't remember this function being discussed in class. So I looked up a code on google. After a few tries, I think I have managed to do a table.
+I don't remember this function-- table-- being discussed in class. So I looked up a code on google. After a few tries, I think I have managed to do a table.
 
 ```{r}
-knitr::kable(max_gdppercap)
+knitr::kable(max_gdpPercap)
 ```
 ### Note 3:
-I used the code suggested in the hw03 page substituting my_df to max_gdppercap.
+I used the code suggested in the hw03 page substituting my_df to max_gdpPercap.
 
 ```{r}
-maxplot <- ggplot(max_gdppercap,aes(continent, max_gdppercap)) + geom_point()
-maxplot
+plot1 <- ggplot(max_gdpPercap, aes(x=continent, y=maximum)) + geom_point()
+plot1
 ```
 ### Note 4:
-I used geom_point to visualize the difference between max_gdppercap among continents.
+I used geom_point to visualize the difference between max_gdpPercap among continents.
 
 ```{r}
-gapminder %>% 
+min_gdpPercap <- gapminder %>% 
   group_by(continent) %>% 
-  summarize(min_gdpPercap = min(gdpPercap))
-table(min_gdppercap)
-knitr::kable(min_gdppercap)
-ggplot(min_gdppercap,aes(x=continent,y=min_gdPercap)) + geom_point()
+  summarize(minimum = min(gdpPercap))
+min_gdpPercap
+table(min_gdpPercap)
+knitr::kable(min_gdpPercap)
+miniplot <- ggplot(min_gdpPercap,aes(x=continent,y=minimum)) + geom_point()
+miniplot
 ```
 ### Note 5:
 For the min_gdpPercap, I copied the codes I used above, changed max to min, and laid out all the codes in one chunk. 
 
 ## Task Two: 
+Look at the spread of GDP per capita within the continents.
+```{r}
+spread <- gapminder %>%
+  group_by(continent,country) %>%
+  summarize(gdp_avg=mean(gdpPercap))
+spread <- arrange(spread, continent)
+knitr::kable(spread)
+```
+
+```{r}
+ggplot(data = gapminder, aes(x=continent, y=gdpPercap)) + 
+  geom_point(aes(colour=continent), alpha=0.5)
+```
+
+## Task Three:
 How is life expectancy changing over time on different continents?
 
 ```{r}
