@@ -1,0 +1,132 @@
+---
+title: "Untitled"
+author: "Me"
+date: '2017-10-05'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+left_join()
+inner_join()
+anti_join()
+semi_join()
+full_join()
+??join #to get help
+```
+
+```{r}
+install.packages("devtools")
+library(devtools)
+install_github("JoeyBernhardt/singer")
+```
+
+```{r}
+library(singer)
+```
+
+```{r}
+data("locations")
+data("songs")
+```
+
+```{r}
+glimpse(songs)
+```
+
+
+```{r}
+glimpse(locations)
+```
+
+```{r}
+View(songs)
+```
+
+```{r}
+View(locations)
+```
+
+### Produce a dataframe with all the albums ('release'), the artists ('artist_name') and the year in which the album was published ('year').
+
+```{r}
+left_join(songs, locations) &>&
+  select(release, artist_name, year)
+```
+
+
+```{r}
+relartyear <- inner_join(locations, songs, by="title") %>%
+  select(release, artist_name.x, year)
+relartyear
+```
+
+```{r}
+View(relartyear)
+```
+
+```{r}
+alternative1 <- inner_join(locations, songs, by = 
+                            c("title", "artist_name") %>%
+  select(release, artist_name, year)
+alternative1
+```
+
+```{r}
+relartyear2 <- left_join(locations, songs, by="title") %>%
+  select(release, artist_name.x, year)
+relartyear2
+```
+
+Get the number of releases per year
+```{r}
+inner_join(songs, locations, by ="title") %>%
+count(year)
+```
+
+#### Three Saints of Programming
+1. Think hard.
+2. Duck, duck, go
+3. Try it.
+
+### Reshaping
+
+```{r}
+data("singer_locations")
+glimpse(singer_locations)
+```
+
+
+```{r}
+View("singer_locations")
+```
+
+```{r}
+hfd_y <- singer_locations %>%
+  select(year, artist_hotttnesss, artist_familiarity, duration)
+hfd_y %>%
+  filter (year > 1900) %>%
+  ggplot (aes(x=year, y=duration)) + geom_point()
+```
+
+package 'tidyr', 'gather' : from wide data frame to long data frame
+```{r}
+hfd_y_long <- hfd_y %>%
+  gather(key = "Measure", value = "Units", artist_hotttnesss:duration)
+View(hfd_y)
+View(hfd_y_long)
+
+hfd_y_long %>%
+  filter(year>1900) %>%
+  ggplot(aes(x=year, y=Units)) +
+  geom_point() +
+  facet_wrap( ~ Measure) 
+```
+
