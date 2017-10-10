@@ -18,9 +18,7 @@ library(tidyverse)
 comparative_sea <- gapminder %>% 
   filter(country %in% c("Indonesia","Malaysia","Singapore", "Philippines")) %>% 
   select(country,year,lifeExp)
-maritime_le <- comparative_sea %>%
-  spread(key = country,value = lifeExp)
-knitr::kable(maritime_le)
+knitr::kable(comparative_sea)
 ```
 
 ```{r}
