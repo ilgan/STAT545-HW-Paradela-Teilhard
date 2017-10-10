@@ -1,0 +1,32 @@
+---
+title: "HWO4"
+output: github_document
+---
+
+```{r}
+library(gapminder)
+library(tidyverse)
+```
+
+# Data Reshaping Prompt
+## Activity # 2
+- Make a tibble with one row per year and columns for life expectancy for two or more countries.
+* Use knitr::kable() to make this table look pretty in your rendered homework.
+* Take advantage of this new data shape to scatterplot life expectancy for one country against that of another.
+
+```{r}
+comparative_sea <- gapminder %>% 
+  filter(country %in% c("Indonesia","Malaysia","Singapore", "Philippines")) %>% 
+  select(country,year,lifeExp)
+maritime_le <- comparative_sea %>%
+  spread(key = country,value = lifeExp)
+knitr::kable(maritime_le)
+```
+
+```{r}
+sea_plot1 <- ggplot(comparative_sea, aes(x=year, y=lifeExp, color=country)) + geom_point ()
+sea_plot1
+```
+
+
+
