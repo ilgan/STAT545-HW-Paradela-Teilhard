@@ -6,6 +6,8 @@ output: github_document
 ```{r}
 library(gapminder)
 library(tidyverse)
+library(tidyr)
+library(reshape2)
 ```
 
 # Data Reshaping Prompt
@@ -17,8 +19,10 @@ library(tidyverse)
 ```{r}
 comparative_sea <- gapminder %>% 
   filter(country %in% c("Indonesia","Malaysia","Singapore", "Philippines")) %>% 
-  select(country,year,lifeExp)
-knitr::kable(comparative_sea)
+  select(year, country, lifeExp)
+maritime_le <- comparative_sea %>%
+  spread(key = country, value = lifeExp)
+knitr::kable(maritime_le)
 ```
 
 ```{r}
@@ -26,5 +30,17 @@ sea_plot1 <- ggplot(comparative_sea, aes(x=year, y=lifeExp, color=country)) + ge
 sea_plot1
 ```
 
+```{r}
+minimum_lifeExp <- gapminder %>% 
+  group_by(year,continent) %>% 
+  summarize(le_minimum = min(lifeExp))
+cont_min <- minimum_lifeExp %>%
+  spread(key=continent, value=le_minimum)
+knitr::kable(cont_min)
+```
 
+```{r}
+cont_plot <- ggplot(minimum_lifeExp, aes(year, le_minimum, colour=continent)) + geom_point()
+cont_plot
+```
 
