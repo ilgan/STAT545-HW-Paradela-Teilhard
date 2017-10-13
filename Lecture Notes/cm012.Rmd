@@ -1,0 +1,44 @@
+---
+title: "cm012"
+author: "TAP"
+date: '2017-10-12'
+output: html_document
+---
+
+# FACTORS
+- Tabular way of apprehending strings.
+```{r}
+install.packages("forcats")
+```
+
+```{r}
+library(forcats)
+library(singer)
+```
+
+```{r}
+data(forcats)
+```
+
+new_data <- data %>%
+mutate(arist_name_factor = as_factor(artist_name))
+
+new_data %>%
+mutate(top_an = fct_lump(artist_name_factor, n = 10)) %>%
+count(variable) %>%
+arrange (-n)
+
+... %>%
+summarise(mean_duration = mean(duration)) %>%
+ggplot(aes(x = artist_name, ...)) +
+
+new.data <- data %>%
+mutate()
+
+city_factor = as_factor(city_factor))
+
+# READING AND WRITING TO FILE
+read_csv()
+readxl
+install.packages("readxl")
+readxl::read
