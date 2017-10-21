@@ -1,0 +1,182 @@
+---
+title: "HW05"
+output: github_document
+---
+
+```{r}
+library(singer)
+library(gapminder)
+library(tidyverse)
+library(forcats)
+```
+
+# Factor Management
+Goals:
+- Define factor variables;
+- Drop factor / levels;
+- Reorder levels based on knowledge from data.
+
+
+## Dropping Oceania 
+Filter the Gapminder data to remove observations associated with the continent of Oceania. Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors.
+
+### Number of rows in gapminder
+```{r}
+nrow(gapminder)
+```
+
+### Levels of continent in original dataset; number of levels of continent
+```{r}
+levels(gapminder$continent)
+nlevels(gapminder$continent)
+```
+
+### Filtering out Oceania and its level
+```{r, warning=FALSE}
+no_OceanLev <-gapminder %>% filter(continent != "Oceania") %>%
+  droplevels()
+no_OceanLev
+```
+
+### Number of rows after filtering out Oceania
+```{r}
+nrow(no_OceanLev)
+```
+
+### Number of levels of continent after filtering out Oceania
+```{r}
+nlevels(no_OceanLev$continent)
+```
+
+### levels of continent after filtering out Oceania
+```{r}
+levels(no_OceanLev$continent)
+```
+
+### Filtering out Oceania but not its level
+```{r}
+no_OceanWth <- gapminder %>% filter(continent != "Oceania")
+no_OceanWth
+nrow(no_OceanWth)
+nlevels(no_OceanWth$continent)
+levels(no_OceanWth$continent)
+```
+
+## Reordering the levels of country or continent. 
+*Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables.*
+
+### Alphabetical order
+```{r}
+gapminder$country %>% levels()
+```
+
+```{r}
+gapminder$continent %>% levels()
+```
+
+### Order by Frequency
+```{r}
+gapminder$country %>% fct_infreq() %>% levels()
+```
+
+```{r}
+gapminder$continent %>% fct_infreq() %>% levels()
+```
+
+### Order by Reverse Frequency
+```{r}
+gapminder$country %>% fct_infreq() %>% fct_rev() %>% levels
+```
+
+### Summary by median population
+```{r}
+fct_reorder(gapminder$country, gapminder$pop) %>% levels()
+```
+
+```{r}
+fct_reorder(gapminder$continent, gapminder$pop) %>% levels()
+```
+
+## Common Part
+```{r}
+Asian_pop <- gapminder %>% filter(continent == "Asia", year <= 1960)
+Asian_pop
+```
+
+### Exploring the effects of arrange ()
+```{r}
+Asian_pop %>% ggplot(aes(x=year, y=pop, color=country)) + geom_line() +
+  labs(title = "Population Growth in Asian Countries, 1950 - 1960", x = "Year", y = "Population") + scale_x_log10()
+```
+
+### Reordering country by population
+```{r}
+fct_reorder(Asian_pop$country, Asian_pop$pop) %>% levels()
+```
+
+```{r}
+Asian_pop %>% ggplot(aes(y=pop, x=fct_reorder(country, pop), color=country)) + geom_point() + labs(title="Population of Asian Countries, 1950 - 1960", x = "Population", y = "Country")
+```
+
+## File I/O
+### Write CSV
+```{r}
+write_csv(Asian_pop, "Asian_pop.csv")
+```
+
+### Save RDS
+```{r}
+saveRDS(Asian_pop, "Asian_pop.rds")
+```
+
+### Dput
+```{r}
+dput(Asian_pop, "Asian_pop-dput.txt")
+```
+
+
+## Visualization Design
+*Plot to be remade: from HW04*
+
+```{r}
+comparative_sea <- gapminder %>% 
+  filter(country %in% c("Indonesia","Malaysia","Singapore", "Philippines")) %>% 
+  select(year, country, lifeExp)
+maritime_le <- comparative_sea %>%
+  spread(key = country, value = lifeExp)
+knitr::kable(maritime_le)
+```
+
+```{r}
+sea_plot1 <- ggplot(comparative_sea, aes(x=year, y=lifeExp, color=country)) + geom_point ()
+sea_plot1
+```
+
+
+```{r}
+library(RColorBrewer)
+```
+
+
+```{r}
+sea_plot2 <- ggplot(comparative_sea, aes(x=year, y=lifeExp, color=country)) + geom_point () + scale_color_brewer(palette = "Set3") +
+  labs(title = "Scatter plots of life expectancy in Maritime Southeast Asian Countries", 
+       y = "Life Expectancy", 
+       x = "Year")
+sea_plot2
+```
+
+### Writing Figures to File
+```{r}
+ggsave("sea_plot1.png", sea_plot1, 
+       device = "png", width = 10, height = 10)
+
+ggsave("sea_plot2.png", sea_plot2, 
+       device = "png", width = 10, height = 10)
+
+ggsave("sea_plot1.pdf", sea_plot1, 
+       device = "pdf", width = 10, height = 10)
+
+ggsave("sea_plot2.pdf", sea_plot2, 
+       device = "pdf", width = 10, height = 10)
+```
