@@ -160,7 +160,7 @@ library(RColorBrewer)
 
 ```{r}
 sea_plot2 <- ggplot(comparative_sea, aes(x=year, y=lifeExp, color=country)) + geom_point () + scale_color_brewer(palette = "Set3") +
-  labs(title = "Scatter plots of life expectancy in Maritime Southeast Asian Countries", 
+  labs(title = "Life Expectancy in Maritime Southeast Asian Countries", 
        y = "Life Expectancy", 
        x = "Year")
 sea_plot2
